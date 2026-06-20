@@ -58,6 +58,7 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(
     function () {
@@ -94,6 +95,8 @@ export default function App() {
     [query],
   );
 
+  console.log(selectedMovie);
+
   return (
     <>
       <NavBar>
@@ -106,13 +109,24 @@ export default function App() {
         {/* <Box>{isLoading ? <Loader /> : <MovieList movies={movies} />}</Box> */}
         <Box>
           {isLoading && <Loader />}
-          {!isLoading && !error && <MovieList movies={movies} />}{" "}
+          {!isLoading && !error && (
+            <MovieList movies={movies} setSelectedMovie={setSelectedMovie} />
+          )}{" "}
           {error && <ErrorMessage message={error} />}
         </Box>
 
         <Box>
-          <WatchedSummary watched={watched} />
-          <WatchedList watched={watched} />
+          {selectedMovie ? (
+            <SelectedMovie
+              selectedMovie={selectedMovie}
+              setSelectedMovie={setSelectedMovie}
+            />
+          ) : (
+            <>
+              <WatchedSummary watched={watched} />
+              <WatchedList watched={watched} />
+            </>
+          )}
         </Box>
       </Main>
     </>
@@ -186,11 +200,18 @@ function Box({ children }) {
   );
 }
 
-function MovieList({ movies }) {
+function MovieList({ movies, setSelectedMovie }) {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies?.map((movie) => (
-        <li key={movie.imdbID}>
+        <li
+          key={movie.imdbID}
+          onClick={() =>
+            setSelectedMovie((selectedId) =>
+              movie.imdbID === selectedId ? null : movie.imdbID,
+            )
+          }
+        >
           <img src={movie.Poster} alt={`${movie.Title} poster`} />
           <h3>{movie.Title}</h3>
           <div>
@@ -259,6 +280,17 @@ function WatchedList({ watched }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+function SelectedMovie({ selectedMovie, setSelectedMovie }) {
+  return (
+    <div className="details">
+      <button className="btn-back" onClick={() => setSelectedMovie(null)}>
+        &larr;
+      </button>
+      {selectedMovie}
+    </div>
   );
 }
 
