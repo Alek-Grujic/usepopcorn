@@ -304,6 +304,22 @@ body {
   transition: all 0.3s;
 }
 
+.btn-add-remove {
+  background-color: #ffd95a;
+  color: var(--color-background-100);
+  border: none;
+  border-radius: 10rem;
+  font-size: 1.4rem;
+  padding: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-add-remove:hover {
+  background-color: #ffca1c;
+}
+
 .btn-add:hover {
   background-color: var(--color-primary-light);
 }
@@ -340,6 +356,73 @@ body {
   justify-content: center;
 }
 
+.watchedList {
+  position: relative;
+}
+
+/* .btn-delete {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  border-radius: 15px;
+  border: none;
+  padding: 7px;
+  background-color: var(--color-background-900);
+  color: whitesmoke;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.2s;
+} */
+.btn-delete {
+  position: absolute;
+  top: 30%;
+  right: 12px;
+
+  transform: translateY(-50%);
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+  border: none;
+
+  cursor: pointer;
+
+  opacity: 0;
+
+  transition: all 0.2s;
+  background-color: var(--color-background-900);
+  color: whitesmoke;
+  font-weight: 700;
+}
+
+.list li:hover .btn-delete {
+  opacity: 1;
+}
+
+.btn-delete::after {
+  content: "Remove";
+  position: absolute;
+  right: 36px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.btn-delete:hover::after {
+  opacity: 1;
+}
 /*
 SPACING SYSTEM (px)
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64 / 80 / 96 / 128

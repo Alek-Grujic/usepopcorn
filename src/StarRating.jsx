@@ -15,8 +15,9 @@ export default function StarRating({
   color = "#fcc419",
   size = 48,
   onSetRating = () => {},
+  userRating,
 }) {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(userRating);
   const [tempRating, setTempRating] = useState(0);
 
   const textStyle = {
