@@ -61,15 +61,6 @@ export default function App() {
   const [error, setError] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  // console.log(selectedMovie);
-  // console.log(movies);
-
-  console.log(watched);
-
-  // console.log(movies.some((sm) => sm.imdbID === selectedMovie));
-
-  // isWatched(movies.some((sm) => sm.imdbID === selectedMovie));
-
   function handleAddWatched(movie) {
     setWatched((watched) => [...watched, movie]);
   }
@@ -274,11 +265,11 @@ function WatchedSummary({ watched }) {
         </p>
         <p>
           <span>⭐️</span>
-          <span>{avgImdbRating}</span>
+          <span>{avgImdbRating.toFixed(1)}</span>
         </p>
         <p>
           <span>🌟</span>
-          <span>{avgUserRating}</span>
+          <span>{avgUserRating.toFixed(1)}</span>
         </p>
         <p>
           <span>⏳</span>
@@ -350,9 +341,6 @@ function SelectedMovie({
   let isWatched = watched.some((sm) => sm.imdbID === selectedMovie);
   let watchedMovie = watched.find((e) => e.imdbID === selectedMovie);
 
-  console.log(watchedMovie?.title);
-  console.log(userRating);
-
   const {
     Title: title,
     Year: year,
@@ -366,6 +354,16 @@ function SelectedMovie({
     Genre: genre,
   } = movie;
 
+  useEffect(() => {
+    if (!title) return;
+
+    document.title = `Movie | ${title}`;
+
+    return () => {
+      document.title = "usePopcorn";
+    };
+  }, [title]);
+
   useEffect(
     function () {
       async function getMovieDetails() {
@@ -374,7 +372,6 @@ function SelectedMovie({
           `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedMovie}`,
         );
         const data = await res.json();
-        console.log(data);
         setMovie(data);
         setIsLoading(false);
       }
