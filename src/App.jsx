@@ -390,6 +390,20 @@ function SelectedMovie({
     [selectedMovie],
   );
 
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.code === "Escape") {
+        setSelectedMovie(null);
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return function () {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [setSelectedMovie]);
+
   function handleAdd() {
     const newWatchedMovie = {
       imdbID: selectedMovie,
