@@ -2,6 +2,7 @@ import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
+import Converter from "./converter.jsx";
 
 // import StarRating from "./StarRating";
 // import ShowMore from "./ShowMore";
@@ -18,10 +19,11 @@ import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
+    {/* <App /> */}
     {/* <StarRating maxRating={10} />
     <StarRating size={32} color="red" />
     <Test /> */}
     {/* <ShowMore /> */}
+    <Converter />
   </StrictMode>,
 );
