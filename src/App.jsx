@@ -2,6 +2,7 @@ import { use, useEffect, useState, useRef } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovies";
 import { useLocalStorage } from "./useLocalStorageState";
+import { useKey } from "./useKey";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -16,8 +17,6 @@ export default function App() {
 
   function handleAddWatched(movie) {
     setWatched((watched) => [...watched, movie]);
-
-    // localStorage.setItem("watched", JSON.stringify([...watched, movie]));
   }
 
   function handleDeleteWatched(id) {
@@ -317,19 +316,21 @@ function SelectedMovie({
     [selectedMovie],
   );
 
-  useEffect(() => {
-    function handleKeyDown(e) {
-      if (e.code === "Escape") {
-        setSelectedMovie(null);
-      }
-    }
+  useKey("Escape", setSelectedMovie);
 
-    document.addEventListener("keydown", handleKeyDown);
+  // useEffect(() => {
+  //   function handleKeyDown(e) {
+  //     if (e.code === "Escape") {
+  //       setSelectedMovie(null);
+  //     }
+  //   }
 
-    return function () {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [setSelectedMovie]);
+  //   document.addEventListener("keydown", handleKeyDown);
+
+  //   return function () {
+  //     document.removeEventListener("keydown", handleKeyDown);
+  //   };
+  // }, [setSelectedMovie]);
 
   function handleAdd() {
     const newWatchedMovie = {
